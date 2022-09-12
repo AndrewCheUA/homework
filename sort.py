@@ -46,22 +46,22 @@ def main():
         if str(file_obj.suffix) in images:
             pathlib.Path(images_p).mkdir(exist_ok=True)
             file_name = normalize(file_obj)
-            file_obj.rename(images_p / file_name)
+            file_obj.rename(os.path.join(images_p, file_name))
         
         elif str(file_obj.suffix) in video:
             pathlib.Path(video_p).mkdir(exist_ok=True)
             file_name = normalize(file_obj)
-            file_obj.rename(video_p / file_name)
+            file_obj.rename(os.path.join(video_p, file_name)))
         
         elif str(file_obj.suffix) in documents:
             pathlib.Path(documents_p).mkdir(exist_ok=True)
             file_name = normalize(file_obj)
-            file_obj.rename(documents_p / file_name)
+            file_obj.rename(os.path.join(documents_p, file_name))
         
         elif str(file_obj.suffix) in music:
             pathlib.Path(music_p).mkdir(exist_ok=True)
             file_name = normalize(file_obj)
-            file_obj.rename(music_p / file_name)
+            file_obj.rename(os.path.join(music_p, file_name))
         
         elif str(file_obj.suffix) in archives:
             pathlib.Path(archives_p).mkdir(exist_ok=True)
@@ -70,7 +70,7 @@ def main():
             file_obj.unlink()
         else:
             file_name = normalize(file_obj)
-            file_obj.rename(imported_main / file_name)
+            file_obj.rename(os.path.join(imported_main, file_name))
 
 
     def sort_folders(folder):
