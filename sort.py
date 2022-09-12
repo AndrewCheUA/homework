@@ -1,3 +1,9 @@
+import pathlib
+import re
+import shutil
+import sys
+import os
+
 def main():
     if len(sys.argv) < 2:
         print('Enter path to folder which should be cleaned')
@@ -7,10 +13,6 @@ def main():
         path('Path incorrect')
         exit()
 
-    import pathlib
-    import re
-    import shutil
-    
     f_catalog = ["images", "video", "documents", "music", "archives"]
 
     def normalize(file):
@@ -36,11 +38,11 @@ def main():
         music = [".mp3", ".ogg", ".wav", ".amr"]
         archives = [".zip", ".gz", ".tar"]
         
-        images_p = pathlib.Path(imported_main / r"images")
-        video_p = pathlib.Path(imported_main / r"video")
-        documents_p = pathlib.Path(imported_main / r"documents")
-        music_p = pathlib.Path(imported_main / r"music")
-        archives_p = pathlib.Path(imported_main / r"archives")
+        images_p = os.path.join(imported_main,"images")
+        video_p = os.path.join(imported_main,"video")
+        documents_p = os.path.join(imported_main,"documents")
+        music_p = os.path.join(imported_main,"music")
+        archives_p = os.path.join(imported_main,"archives")
         if str(file_obj.suffix) in images:
             pathlib.Path(images_p).mkdir(exist_ok=True)
             file_name = normalize(file_obj)
@@ -75,19 +77,19 @@ def main():
         for item in folder.iterdir():
             if item.is_file():
                 sort_funct(path, item)
-            elif item.is_dir() and any(file_obj.iterdir()) == False and not item.name in f_catalog:
+            elif item.is_dir() and any(file_obj.iterdir()) == False and item.name not in f_catalog:
                     print(f"removed {item.name}")
                     item.rmdir()
-            elif item.is_dir() and any(file_obj.iterdir()) == True and not item.name in f_catalog:
+            elif item.is_dir() and any(file_obj.iterdir()) == True and item.name not in f_catalog:
                 sort_folders(item)
             
     def sort_main_folder(path):
         for file_obj in path.iterdir():
-            if file_obj.is_dir() and file_obj.stat().st_size > 0 and not file_obj.name in f_catalog:
+            if file_obj.is_dir() and file_obj.stat().st_size > 0 and file_obj.name not in f_catalog:
                 sort_folders(file_obj)
             elif file_obj.is_file():
                 sort_funct(path, file_obj)
-            if file_obj.is_dir() and any(file_obj.iterdir()) == False and not file_obj.name in f_catalog:
+            if file_obj.is_dir() and any(file_obj.iterdir()) == False and file_obj.name not in f_catalog:
                 file_obj.rmdir()
 
 
