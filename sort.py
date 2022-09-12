@@ -77,10 +77,9 @@ def main():
         for item in folder.iterdir():
             if item.is_file():
                 sort_funct(path, item)
-            elif item.is_dir() and any(file_obj.iterdir()) == False and item.name not in f_catalog:
-                    print(f"removed {item.name}")
+            elif item.is_dir() and any(item.iterdir()) == False and item.name not in f_catalog:
                     item.rmdir()
-            elif item.is_dir() and any(file_obj.iterdir()) == True and item.name not in f_catalog:
+            elif item.is_dir() and any(item.iterdir()) == True and item.name not in f_catalog:
                 sort_folders(item)
             
     def sort_main_folder(path):
