@@ -77,9 +77,9 @@ def main():
         for item in folder.iterdir():
             if item.is_file():
                 sort_funct(path, item)
-            elif item.is_dir() and any(item.iterdir()) == False and item.name not in f_catalog:
+            elif item.is_dir() and not any(item.iterdir()) and item.name not in f_catalog:
                     item.rmdir()
-            elif item.is_dir() and any(item.iterdir()) == True and item.name not in f_catalog:
+            elif item.is_dir() and any(item.iterdir()) and item.name not in f_catalog:
                 sort_folders(item)
             
     def sort_main_folder(path):
@@ -88,7 +88,7 @@ def main():
                 sort_folders(file_obj)
             elif file_obj.is_file():
                 sort_funct(path, file_obj)
-            if file_obj.is_dir() and any(file_obj.iterdir()) == False and file_obj.name not in f_catalog:
+            if file_obj.is_dir() and not any(file_obj.iterdir()) and file_obj.name not in f_catalog:
                 file_obj.rmdir()
 
 
